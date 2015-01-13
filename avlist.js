@@ -37,7 +37,7 @@ function HTMLElementAttributeValueList (e, a) {
 
 		for (var i = 0; i < list.length; i++) {
 			if (list[i] != attrValue) {
-				newStr += list[i];
+				newStr += list[i] + " ";
 			};
 		};
 
