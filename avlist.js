@@ -7,66 +7,63 @@ HTMLElement.prototype.avList = function(name){
 
 function HTMLElementAttributeValueList (e, n) {
 
-	this.contains = function(value){
-		var attrValue = e.getAttribute(n);
-		var attrValueList = attrValue.split(/\s+/);
+	this.contains = function(){
+		var value = e.getAttribute(n);
 		var valueList = value.split(/\s+/);
 		var c = 0;
 
-		for (var i = 0; i < valueList.length; i++) {
-			for (var y = 0; y < attrValueList.length; y++) {
-				if (valueList[i] == attrValueList[y]) {
+		for (var i = 0; i < arguments.length; i++) {
+			for (var y = 0; y < valueList.length; y++) {
+				if (arguments[i] == valueList[y]) {
 					c++;
 					break;
 				};
 			};
 		};
 
-		return c == valueList.length;
+		return c == arguments.length;
 	};
 
-	this.add = function(value){
-		var attrValue = e.getAttribute(n);
-		var attrValueList = attrValue.split(/\s+/);
+	this.add = function(){
+		var value = e.getAttribute(n);
 		var valueList = value.split(/\s+/);
 		var addValue;
 
-		for (var i = 0; i < valueList.length; i++) {
-			var exist = false;
-			for (var y = 0; y < attrValueList.length; y++) {
-				if (valueList[i] == attrValueList[y]) {
-					exist = true;
-					break;
-				};
-			};
-			if (exist == false) {
-				addValue += " " + valueList[i];
-			};
-		};
-
-		e.setAttribute(n, attrValue + addValue);
-	};
-
-	this.remove = function(value){
-		var attrValue = e.getAttribute(n);
-		var attrValueList = attrValue.split(/\s+/);
-		var valueList = value.split(/\s+/);
-		var newAttrValue;
-
-		for (var i = 0; i < attrValueList.length; i++) {
+		for (var i = 0; i < arguments.length; i++) {
 			var exist = false;
 			for (var y = 0; y < valueList.length; y++) {
-				if (valueList[y] == attrValueList[i]) {
+				if (arguments[i] == valueList[y]) {
 					exist = true;
 					break;
 				};
 			};
 			if (exist == false) {
-				newAttrValue += attrValueList[i] + " ";
+				addValue += " " + arguments[i];
 			};
 		};
 
-		e.setAttribute(n, newAttrValue.slice(0, -2));
+		e.setAttribute(n, value + addValue);
+	};
+
+	this.remove = function(){
+		var value = e.getAttribute(n);
+		var valueList = value.split(/\s+/);
+		var newValue;
+
+		for (var i = 0; i < valueList.length; i++) {
+			var exist = false;
+			for (var y = 0; y < arguments.length; y++) {
+				if (arguments[y] == valueList[i]) {
+					exist = true;
+					break;
+				};
+			};
+			if (exist == false) {
+				newValue += valueList[i] + " ";
+			};
+		};
+
+		e.setAttribute(n, newValue.slice(0, -2));
 	};
 
 }
