@@ -1,47 +1,52 @@
-HTMLElement.prototype.avList = function(attrName){
-	return new HTMLElementAttributeValueList(this, attrName);
+HTMLElement.prototype.avList = function(name){
+	return new HTMLElementAttributeValueList(this, name);
 };
 
-function HTMLElementAttributeValueList (e, a) {
+function HTMLElementAttributeValueList (e, n) {
 
-	this.contains = function(attrValue){
-		var str = e.getAttribute(a);
-		var list = str.split(" ");
+	this.contains = function(value){
+		var attrValue = e.getAttribute(n);
+		var attrValueList = str.split(" ");
+		var valueList = str.split(" ");
+		var c = 0;
 
-		for (var i = 0; i < list.length; i++) {
-			if (list[i] == attrValue) {
-				return true;
+		for (var i = 0; i < valueList.length; i++) {
+			for (var y = 0; y < attrValueList.length; y++) {
+				if (valueList[i] == attrValueList[y]) {
+					c++;
+					break;
+				};
 			};
 		};
-
-		return false;
+		
+		return c == valueList.length;
 	};
 
-	this.add = function(attrValue){
-		var str = e.getAttribute(a);
+	this.add = function(value){
+		var str = e.getAttribute(n);
 		var list = str.split(" ");
 
 		for (var i = 0; i < list.length; i++) {
-			if (list[i] == attrValue) {
+			if (list[i] == value) {
 				return;
 			};
 		};
 
-		e.setAttribute(a, str + " " + attrValue);
+		e.setAttribute(n, str + " " + value);
 	};
 
-	this.del = this.remove = function(attrValue){
-		var str = e.getAttribute(a);
+	this.del = this.remove = function(value){
+		var str = e.getAttribute(n);
 		var list = str.split(" ");
 		var newStr;
 
 		for (var i = 0; i < list.length; i++) {
-			if (list[i] != attrValue) {
+			if (list[i] != value) {
 				newStr += list[i] + " ";
 			};
 		};
 
-		e.setAttribute(a, newStr.slice(0, -2));
+		e.setAttribute(n, newStr.slice(0, -2));
 	};
 
 }
