@@ -1,4 +1,7 @@
 HTMLElement.prototype.avList = function(name){
+	if (name.toLowerCase() == "class" && this.classList){
+		return this.classList;
+	};
 	return new HTMLElementAttributeValueList(this, name);
 };
 
