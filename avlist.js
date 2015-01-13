@@ -44,18 +44,26 @@ function HTMLElementAttributeValueList (e, n) {
 		e.setAttribute(n, attrValue + addValue);
 	};
 
-	this.del = this.remove = function(value){
-		var str = e.getAttribute(n);
-		var list = str.split(" ");
-		var newStr;
+	this.remove = function(value){
+		var attrValue = e.getAttribute(n);
+		var attrValueList = attrValue.split(/\s+/);
+		var valueList = value.split(/\s+/);
+		var newAttrValue;
 
-		for (var i = 0; i < list.length; i++) {
-			if (list[i] != value) {
-				newStr += list[i] + " ";
+		for (var i = 0; i < attrValueList.length; i++) {
+			var exist = false;
+			for (var y = 0; y < valueList.length; y++) {
+				if (valueList[y] == attrValueList[i]) {
+					exist = true;
+					break;
+				};
+			};
+			if (exist == false) {
+				newAttrValue += attrValueList[i] + " ";
 			};
 		};
 
-		e.setAttribute(n, newStr.slice(0, -2));
+		e.setAttribute(n, newAttrValue.slice(0, -2));
 	};
 
 }
