@@ -6,8 +6,8 @@ function HTMLElementAttributeValueList (e, n) {
 
 	this.contains = function(value){
 		var attrValue = e.getAttribute(n);
-		var attrValueList = str.split(" ");
-		var valueList = str.split(" ");
+		var attrValueList = attrValue.split(/\s+/);
+		var valueList = value.split(/\s+/);
 		var c = 0;
 
 		for (var i = 0; i < valueList.length; i++) {
@@ -18,21 +18,30 @@ function HTMLElementAttributeValueList (e, n) {
 				};
 			};
 		};
-		
+
 		return c == valueList.length;
 	};
 
 	this.add = function(value){
-		var str = e.getAttribute(n);
-		var list = str.split(" ");
+		var attrValue = e.getAttribute(n);
+		var attrValueList = attrValue.split(/\s+/);
+		var valueList = value.split(/\s+/);
+		var addValue;
 
-		for (var i = 0; i < list.length; i++) {
-			if (list[i] == value) {
-				return;
+		for (var i = 0; i < valueList.length; i++) {
+			var exist = false;
+			for (var y = 0; y < attrValueList.length; y++) {
+				if (valueList[i] == attrValueList[y]) {
+					exist = true;
+					break;
+				};
+			};
+			if (exist == false) {
+				addValue += " " + valueList[i];
 			};
 		};
 
-		e.setAttribute(n, str + " " + value);
+		e.setAttribute(n, attrValue + addValue);
 	};
 
 	this.del = this.remove = function(value){
