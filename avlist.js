@@ -41,7 +41,7 @@ function HTMLElementAttributeValueList (e, a) {
 			};
 		};
 
-		e.setAttribute(a, newStr);
+		e.setAttribute(a, newStr.slice(0, -2));
 	};
 
 }
