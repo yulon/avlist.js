@@ -1,14 +1,24 @@
 HTMLElement.prototype.avList = function(name){
-	if (name.toLowerCase() == "class" && this.classList){
+	var n = HTMLElementAttributeValueList.selectors[name];
+	if (!n) {
+		n = name;
+	};
+	if (n.toLowerCase() == "class" && this.classList){
 		return this.classList;
 	};
-	return new HTMLElementAttributeValueList(this, name);
+	return new HTMLElementAttributeValueList(this, n);
 };
 
 function HTMLElementAttributeValueList (e, n) {
 	this.element = e;
 	this.attrName = n;
 }
+
+HTMLElementAttributeValueList.selectors = {
+	".": "class",
+	"#": "id",
+	"@": "name",
+};
 
 HTMLElementAttributeValueList.prototype.contains = function() {
 	var value = this.element.getAttribute(this.attrName);
