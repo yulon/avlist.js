@@ -72,7 +72,7 @@ HTMLElementAttributeValueList.prototype.remove = function(){
 	var value = this.element.getAttribute(this.attrName);
 	if (value) {
 		var valueList = value.split(/\s+/);
-		var newValue;
+		var newValue = "";
 
 		for (var i = 0; i < valueList.length; i++) {
 			var exist = false;
